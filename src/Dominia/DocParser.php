@@ -12,7 +12,7 @@ use \Smalot\PdfParser\Parser;
 
 class DocParser
 {
-    public function PDF2XML($pdfFile){
+    public function pdfToArray($pdfFile){
         $domains = array();
         $parser = new \Smalot\PdfParser\Parser();
         $pdf = $parser->parseFile($pdfFile);

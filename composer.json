@@ -1,0 +1,22 @@
+{
+    "name": "pangodream/dominia",
+    "description": "Spanish www.dominios.es crawler",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Pangodream Development",
+            "email": "development@pangodream.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "guzzlehttp/guzzle": "^6.3@dev",
+        "smalot/pdfparser": "*"
+    },
+    "autoload": {
+        "psr-0":{
+            "Dominia": "src/"
+        }
+    }
+}

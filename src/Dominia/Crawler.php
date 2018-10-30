@@ -14,15 +14,15 @@ class Crawler
 {
     private $uriBase = null;
     private $excludes = array("Estad",
-        "Dominios ",
-        "Dominios%20",
-        "Presentac",
-        "Agentes",
-        "_dominios_",
-        "estad%C3%ADsticas",
-        "Caracterizaci",
-        "folleto",
-        "certificado", );
+                              "Dominios ",
+                              "Dominios%20",
+                              "Presentac",
+                              "Agentes",
+                              "_dominios_",
+                              "estad%C3%ADsticas",
+                              "Caracterizaci",
+                              "folleto",
+                              "certificado", );
     private $mainPage = "/dominios/es/todo-lo-que-necesitas-saber/estadisticas";
     private $client = null;
     private $docsHome = null;

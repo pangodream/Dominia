@@ -30,9 +30,7 @@ class DocParser
         $rawLines = explode("\n", $text);
         $line = "";
         foreach($rawLines as $l){
-            if(strpos($l,"12ig.es")!==false){
-                die();
-            }
+
             $l = trim($l);
             $line .= $l;
             if($this->isValidDate(substr($line, -10))){
@@ -40,13 +38,14 @@ class DocParser
                 $line = "";
             }
         }
+
         foreach($lines as $l) {
             $l = trim($l);
             preg_match_all('#[0-3][0-9]\/[0-1][0-9]\/[2][0][0-9][0-9]#', $l, $found);
             foreach($found[0] as $fDate){
                 $i = strpos($l, $fDate);
                 $dateOrig = substr($l, $i, 10);
-                $domainEntry = substr($l, 0, $i);
+                $domainEntry = trim(substr($l, 0, $i));
                 if($this->isValidDate($dateOrig) && $this->isValidDomain($domainEntry)) {
                     $date = substr($dateOrig, 6, 4)."-".substr($dateOrig, 3, 2)."-".substr($dateOrig, 0, 2);
                     $domains[] = array('domain' => $domainEntry, 'registerDate' => $date);

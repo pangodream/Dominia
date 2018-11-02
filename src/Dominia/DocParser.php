@@ -28,47 +28,13 @@ class DocParser
         $pdf = $parser->parseFile($pdfFile);
         $text = $pdf->getText();
         $rawLines = explode("\n", $text);
-        $prevLine = "";
-        foreach($rawLines as $l) {
+        $line = "";
+        foreach($rawLines as $l){
             $l = trim($l);
-            //If there is an space as dividing then line
-            if(strpos($l, " ") !== false){
-                $parts = explode(" ", $l);
-                $domain = trim($parts[0]);
-                $date = trim($parts[sizeof($parts)-1]);
-
-            }else{
-                //If the line contains .es
-                $posEs = strpos($l, ".es");
-                if(strpos($l, ".es") !== false){
-                    $domain = substr($l, 0, $posEs + 3);
-                    $date = substr($l, $posEs + 3);
-                }else{
-                    $domain = "";
-                    $date = $l;
-                }
-            }
-            $domain = trim($domain);
-            $date =trim($date);
-            $isDate = $this->isValidDate($date);
-            $isDomain = $this->isValidDomain($domain);
-            //Was the previous line an incomplete one?
-            if ($prevLine != "") {
-                //Have we got a valid date? Then complete previous line with its date
-                if ($isDate) {
-                    $lines[] = $prevLine . " " . $date;
-                }
-                $prevLine = "";
-            } else {
-                //Have we got a valid domain?
-                if ($isDomain) {
-                    //Have we got a valid date?
-                    if ($isDate) {
-                        $lines[] = $domain . " " . $date;
-                    } else {
-                        $prevLine = $domain;
-                    }
-                }
+            $line .= $l;
+            if($this->isValidDate(substr($line, -10))){
+                $lines[] = $line;
+                $line = "";
             }
         }
         foreach($lines as $l) {
@@ -76,7 +42,9 @@ class DocParser
             $domainEntry = trim(substr($l, 0, -10));
             $dateOrig = trim(substr($l, -10));
             $date = substr($dateOrig, 6, 4)."-".substr($dateOrig, 3, 2)."-".substr($dateOrig, 0, 2);
-            $domains[] = array('domain'=>$domainEntry, 'registerDate'=>$date);
+            if($this->isValidDate($date) && $this->isValidDomain($domainEntry)) {
+                $domains[] = array('domain' => $domainEntry, 'registerDate' => $date);
+            }
         }
         return $domains;
     }

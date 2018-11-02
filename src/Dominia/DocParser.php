@@ -35,7 +35,8 @@ class DocParser
             if(strpos($l, " ") !== false){
                 $parts = explode(" ", $l);
                 $domain = trim($parts[0]);
-                $date = trim($parts[1]);
+                $date = trim($parts[sizeof($parts)-1]);
+
             }else{
                 //If the line contains .es
                 $posEs = strpos($l, ".es");
@@ -47,6 +48,8 @@ class DocParser
                     $date = $l;
                 }
             }
+            $domain = trim($domain);
+            $date =trim($date);
             $isDate = $this->isValidDate($date);
             $isDomain = $this->isValidDomain($domain);
             //Was the previous line an incomplete one?

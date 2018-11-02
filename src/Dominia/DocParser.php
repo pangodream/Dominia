@@ -41,8 +41,8 @@ class DocParser
             $l = trim($l);
             $domainEntry = trim(substr($l, 0, -10));
             $dateOrig = trim(substr($l, -10));
-            $date = substr($dateOrig, 6, 4)."-".substr($dateOrig, 3, 2)."-".substr($dateOrig, 0, 2);
-            if($this->isValidDate($date) && $this->isValidDomain($domainEntry)) {
+            if($this->isValidDate($dateOrig) && $this->isValidDomain($domainEntry)) {
+                $date = substr($dateOrig, 6, 4)."-".substr($dateOrig, 3, 2)."-".substr($dateOrig, 0, 2);
                 $domains[] = array('domain' => $domainEntry, 'registerDate' => $date);
             }
         }

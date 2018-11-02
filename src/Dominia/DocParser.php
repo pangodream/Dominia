@@ -48,11 +48,23 @@ class DocParser
         }
         return $domains;
     }
+
+    /**
+     * Checks if a date string is valid
+     * @param $date
+     * @return bool
+     */
     private function isValidDate($date){
         return checkdate((int)substr($date, 3, 2),
                          (int)substr($date, 0, 2),
                          (int)substr($date, 6, 4));
     }
+
+    /**
+     * Checks if a string is a valid domain name
+     * @param $domain
+     * @return mixed
+     */
     private function isValidDomain($domain){
         return filter_var("http://".$domain, FILTER_VALIDATE_URL);
     }
